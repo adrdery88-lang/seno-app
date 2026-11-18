@@ -2,29 +2,88 @@
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
 
 jobs:
   build:
-    runs-on: ubuntu-24.04
+    name: Build Android Release APK (Android 7+)
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v5
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Java JDK 17
+        uses: actions/setup-java@v4
         with:
-          distribution: 'zulu'
+          distribution: 'temurin'
           java-version: '17'
-      - uses: subosito/flutter-action@v2
+
+      - name: Set up Flutter (Stable)
+        uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.24.3'
           channel: 'stable'
-      - name: Clean Gradle Cache
-        run: rm -rf ~/.gradle/caches/
-      - name: Get Dependencies
+          cache: true
+
+      - name: Setup Native Android Platform Glue
+        run: |
+          # Backup custom lib and pubspec
+          cp -r lib lib_backup
+          cp pubspec.yaml pubspec_backup.yaml
+
+          # Generate official Gradle wrapper and Android project structure
+          flutter create --org com.seno.app --project-name seno --platforms android .
+
+          # Restore custom code and pubspec
+          rm -rf lib
+          mv lib_backup lib
+          mv pubspec_backup.yaml pubspec.yaml
+
+          # Inject permissions for speech recognition, camera & internet
+          python3 -c "
+          manifest_path = 'android/app/src/main/AndroidManifest.xml'
+          with open(manifest_path, 'r') as f:
+              content = f.read()
+          perms = '''
+      <uses-permission android:name=\"android.permission.INTERNET\" />
+      <uses-permission android:name=\"android.permission.RECORD_AUDIO\" />
+      <uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\" />
+      <uses-permission android:name=\"android.permission.CAMERA\" />
+      <uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />
+          '''
+          if 'android.permission.RECORD_AUDIO' not in content:
+              content = content.replace('<application', perms + '\n    <application')
+              with open(manifest_path, 'w') as f:
+                  f.write(content)
+          print('AndroidManifest updated successfully')
+          "
+
+          # Configure minSdkVersion to 21 (Fully compatible with Android 7.0/7.1 API 24/25)
+          python3 -c "
+          import re
+          gradle_path = 'android/app/build.gradle'
+          with open(gradle_path, 'r') as f:
+              content = f.read()
+          content = re.sub(r'minSdkVersion\s*=.*', 'minSdkVersion = 21', content)
+          content = re.sub(r'minSdkVersion\s+flutter\.minSdkVersion', 'minSdkVersion 21', content)
+          with open(gradle_path, 'w') as f:
+              f.write(content)
+          print('build.gradle minSdkVersion set to 21')
+          "
+
+      - name: Install Dependencies
         run: flutter pub get
-      - name: Build APK
-        run: flutter build apk --release --split-per-abi
-      - name: Upload APK
+
+      - name: Build Release APK
+        run: flutter build apk --release
+
+      - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: seno-android-apk
           path: build/app/outputs/flutter-apk/*.apk
+          retention-days: 14

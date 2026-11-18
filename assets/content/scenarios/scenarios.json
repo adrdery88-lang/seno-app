@@ -1,0 +1,26 @@
+[
+  {
+    "id": "airport",
+    "title": "Airport Customs & Border",
+    "icon": "flight_takeoff",
+    "difficulty": "A2-B1"
+  },
+  {
+    "id": "coffeeshop",
+    "title": "Ordering Specialty Coffee",
+    "icon": "coffee",
+    "difficulty": "A1-A2"
+  },
+  {
+    "id": "jobinterview",
+    "title": "Tech & Product Job Interview",
+    "icon": "work",
+    "difficulty": "B1-B2"
+  },
+  {
+    "id": "negotiation",
+    "title": "Business Contract Negotiation",
+    "icon": "handshake",
+    "difficulty": "B2-C1"
+  }
+]
