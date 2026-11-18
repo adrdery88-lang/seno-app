@@ -15,7 +15,7 @@ jobs:
           java-version: '17'
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.x'
+          flutter-version: '3.24.3'
           channel: 'stable'
       - name: Clean Gradle Cache
         run: rm -rf ~/.gradle/caches/
