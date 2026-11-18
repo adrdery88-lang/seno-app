@@ -1,0 +1,46 @@
+[
+  {
+    "id": "officer_rivera",
+    "name": "Officer Rivera",
+    "role": "Border Customs Officer",
+    "scenario": "Airport Customs & Border Check",
+    "avatarAsset": "assets/images/avatars/officer_rivera.png",
+    "personalityDescription": "Direct, formal, and thorough. Asks about your travel purpose, duration, and declarations.",
+    "cefrLevelMin": "A2",
+    "cefrLevelMax": "B1",
+    "greetingMessage": "Next traveler please. Passport and landing card, please. What is the primary purpose of your visit?"
+  },
+  {
+    "id": "maya_barista",
+    "name": "Maya",
+    "role": "Friendly Barista",
+    "scenario": "Downtown Specialty Coffee Shop",
+    "avatarAsset": "assets/images/avatars/maya.png",
+    "personalityDescription": "Warm, cheerful, and patient. Helps you customize your beverage, dairy alternatives, and pastries.",
+    "cefrLevelMin": "A1",
+    "cefrLevelMax": "A2",
+    "greetingMessage": "Hi there! Welcome to BeanCraft. What can I brew fresh for you today?"
+  },
+  {
+    "id": "sarah_chen",
+    "name": "Sarah Chen",
+    "role": "Tech VP & Hiring Manager",
+    "scenario": "Senior Product & Engineering Interview",
+    "avatarAsset": "assets/images/avatars/sarah_chen.png",
+    "personalityDescription": "Professional, insightful, and curious. Asks behavioral questions using the STAR framework.",
+    "cefrLevelMin": "B1",
+    "cefrLevelMax": "B2",
+    "greetingMessage": "Thanks for joining today! Let's start with a brief overview of a high-impact project you led recently."
+  },
+  {
+    "id": "james_mitchell",
+    "name": "James Mitchell",
+    "role": "Procurement Director",
+    "scenario": "SaaS Contract & Commercial Negotiation",
+    "avatarAsset": "assets/images/avatars/james_mitchell.png",
+    "personalityDescription": "Strategic, calculating, and respectful. Challenges pricing structures and SLAs.",
+    "cefrLevelMin": "B2",
+    "cefrLevelMax": "C1",
+    "greetingMessage": "Good morning. We appreciate your proposal, but your annual licensing tiers are about 18% over our budget."
+  }
+]

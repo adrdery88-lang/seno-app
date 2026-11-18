@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "name": "Absolute Beginner",
+    "cefrCode": "Pre-A1",
+    "description": "Alphabet, Phonics, Basic Greetings, Numbers & Colors",
+    "colorHex": "#00D9A6",
+    "sortOrder": 1,
+    "isLocked": false
+  },
+  {
+    "id": 2,
+    "name": "Elementary",
+    "cefrCode": "A1-A2",
+    "description": "Daily Conversations, Essential Grammar, Present & Past Tenses",
+    "colorHex": "#6C63FF",
+    "sortOrder": 2,
+    "isLocked": false
+  },
+  {
+    "id": 3,
+    "name": "Intermediate",
+    "cefrCode": "B1-B2",
+    "description": "Workplace English, Idioms, Phrasal Verbs & Listening",
+    "colorHex": "#FFB800",
+    "sortOrder": 3,
+    "isLocked": false
+  },
+  {
+    "id": 4,
+    "name": "Advanced & Mastery",
+    "cefrCode": "C1-C2",
+    "description": "Business Negotiations, Academic Writing, Native Nuances & Debate",
+    "colorHex": "#FF6B6B",
+    "sortOrder": 4,
+    "isLocked": false
+  }
+]

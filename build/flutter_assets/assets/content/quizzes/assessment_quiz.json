@@ -1,0 +1,132 @@
+[
+  {
+    "id": "q1",
+    "questionText": "Choose the correct greeting for the morning:",
+    "options": [
+      "Good night",
+      "Good morning",
+      "Good afternoon",
+      "Goodbye"
+    ],
+    "correctOptionIndex": 1,
+    "difficulty": 1,
+    "skillCategory": "vocabulary"
+  },
+  {
+    "id": "q2",
+    "questionText": "She ______ to school every day by bus.",
+    "options": [
+      "go",
+      "goes",
+      "going",
+      "gone"
+    ],
+    "correctOptionIndex": 1,
+    "difficulty": 2,
+    "skillCategory": "grammar"
+  },
+  {
+    "id": "q3",
+    "questionText": "Yesterday, they ______ delicious pizza at the Italian restaurant.",
+    "options": [
+      "eats",
+      "eating",
+      "ate",
+      "eaten"
+    ],
+    "correctOptionIndex": 2,
+    "difficulty": 3,
+    "skillCategory": "grammar"
+  },
+  {
+    "id": "q4",
+    "questionText": "What is the opposite of 'generous'?",
+    "options": [
+      "Selfish",
+      "Kind",
+      "Polite",
+      "Brave"
+    ],
+    "correctOptionIndex": 0,
+    "difficulty": 4,
+    "skillCategory": "vocabulary"
+  },
+  {
+    "id": "q5",
+    "questionText": "If I ______ more time, I would travel around the world.",
+    "options": [
+      "have",
+      "had",
+      "will have",
+      "would have"
+    ],
+    "correctOptionIndex": 1,
+    "difficulty": 5,
+    "skillCategory": "grammar"
+  },
+  {
+    "id": "q6",
+    "questionText": "Which idiom means 'to face a difficult situation with courage'?",
+    "options": [
+      "Break the ice",
+      "Bite the bullet",
+      "Spill the beans",
+      "Hit the sack"
+    ],
+    "correctOptionIndex": 1,
+    "difficulty": 6,
+    "skillCategory": "idioms"
+  },
+  {
+    "id": "q7",
+    "questionText": "By the end of next month, we ______ our thesis dissertation.",
+    "options": [
+      "will complete",
+      "will have completed",
+      "completed",
+      "have completed"
+    ],
+    "correctOptionIndex": 1,
+    "difficulty": 7,
+    "skillCategory": "grammar"
+  },
+  {
+    "id": "q8",
+    "questionText": "Select the word closest in meaning to 'ubiquitous':",
+    "options": [
+      "Omnipresent",
+      "Scarce",
+      "Ambiguous",
+      "Ephemeral"
+    ],
+    "correctOptionIndex": 0,
+    "difficulty": 8,
+    "skillCategory": "vocabulary"
+  },
+  {
+    "id": "q9",
+    "questionText": "Hardly ______ entered the lecture hall when the professor began speaking.",
+    "options": [
+      "she had",
+      "had she",
+      "she has",
+      "did she"
+    ],
+    "correctOptionIndex": 1,
+    "difficulty": 9,
+    "skillCategory": "grammar"
+  },
+  {
+    "id": "q10",
+    "questionText": "The CEO's remarks were deliberately ______ to avoid committing to a timeline.",
+    "options": [
+      "succinct",
+      "lucid",
+      "equivocal",
+      "candid"
+    ],
+    "correctOptionIndex": 2,
+    "difficulty": 10,
+    "skillCategory": "advanced"
+  }
+]
