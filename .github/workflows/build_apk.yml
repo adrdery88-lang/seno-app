@@ -29,51 +29,15 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: Setup Native Android Platform Glue
+      - name: Setup Android Platform
         run: |
-          # Backup custom lib and pubspec
           cp -r lib lib_backup
           cp pubspec.yaml pubspec_backup.yaml
-
-          # Generate official Gradle wrapper and Android project structure
           flutter create --org com.seno.app --project-name seno --platforms android .
-
-          # Restore custom code and pubspec
           rm -rf lib
           mv lib_backup lib
           mv pubspec_backup.yaml pubspec.yaml
-
-          # Inject permissions for speech recognition, camera & internet
-          python3 -c "
-          manifest_path = 'android/app/src/main/AndroidManifest.xml'
-          with open(manifest_path, 'r') as f:
-              content = f.read()
-          perms = '''
-      <uses-permission android:name=\"android.permission.INTERNET\" />
-      <uses-permission android:name=\"android.permission.RECORD_AUDIO\" />
-      <uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\" />
-      <uses-permission android:name=\"android.permission.CAMERA\" />
-      <uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />
-          '''
-          if 'android.permission.RECORD_AUDIO' not in content:
-              content = content.replace('<application', perms + '\n    <application')
-              with open(manifest_path, 'w') as f:
-                  f.write(content)
-          print('AndroidManifest updated successfully')
-          "
-
-          # Configure minSdkVersion to 21 (Fully compatible with Android 7.0/7.1 API 24/25)
-          python3 -c "
-          import re
-          gradle_path = 'android/app/build.gradle'
-          with open(gradle_path, 'r') as f:
-              content = f.read()
-          content = re.sub(r'minSdkVersion\s*=.*', 'minSdkVersion = 21', content)
-          content = re.sub(r'minSdkVersion\s+flutter\.minSdkVersion', 'minSdkVersion 21', content)
-          with open(gradle_path, 'w') as f:
-              f.write(content)
-          print('build.gradle minSdkVersion set to 21')
-          "
+          python3 scripts/setup_android.py
 
       - name: Install Dependencies
         run: flutter pub get
