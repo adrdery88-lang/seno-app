@@ -25,10 +25,8 @@ if (flutterVersionName == null) {
 android {
     namespace "com.seno.app"
     compileSdk 34
-    ndkVersion "25.1.8937393"
 
     compileOptions {
-        // Desugaring enables Java 8+ features on older Android versions like Android 7.0
         coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -44,7 +42,6 @@ android {
 
     defaultConfig {
         applicationId "com.seno.app"
-        // minSdkVersion 21 or 24 guarantees support for Android 7.0 (API 24) and 7.1 (API 25)
         minSdkVersion 21
         targetSdkVersion 34
         versionCode flutterVersionCode.toInteger()

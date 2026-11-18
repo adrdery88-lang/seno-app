@@ -18,25 +18,21 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up Java JDK 17
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Set up Flutter (Stable)
+      - name: Set up Flutter (3.24.3)
         uses: subosito/flutter-action@v2
         with:
+          flutter-version: '3.24.3'
           channel: 'stable'
           cache: true
 
-      - name: Setup Android Platform
+      - name: Setup Android Permissions and Gradle
         run: |
-          cp -r lib lib_backup
-          cp pubspec.yaml pubspec_backup.yaml
-          flutter create --org com.seno.app --project-name seno --platforms android .
-          rm -rf lib
-          mv lib_backup lib
-          mv pubspec_backup.yaml pubspec.yaml
+          chmod +x android/gradlew
           python3 scripts/setup_android.py
 
       - name: Install Dependencies
