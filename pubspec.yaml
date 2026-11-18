@@ -26,10 +26,10 @@ dependencies:
   # Network & Backend
   connectivity_plus: ^6.1.0
 
-  # Audio & Speech
+  # Audio & Speech (Updated to latest compatible versions for Android SDK 36)
   just_audio: ^0.9.42
-  flutter_tts: ^4.2.0
-  speech_to_text: ^7.0.0
+  flutter_tts: ^4.2.5
+  speech_to_text: ^7.5.0
 
   # UI, Icons, Visuals & Animations
   flutter_animate: ^4.5.2
@@ -49,4 +49,3 @@ flutter:
     - assets/content/quizzes/
     - assets/content/personas/
     - assets/content/scenarios/
-

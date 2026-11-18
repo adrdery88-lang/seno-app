@@ -24,19 +24,23 @@ if os.path.exists(manifest_path):
 else:
     print(f"Warning: {manifest_path} not found.")
 
-# 2. Update android/app/build.gradle for Android 7+ (minSdkVersion = 21)
+# 2. Ensure minSdkVersion = 21 and compileSdk = 36 in android/app/build.gradle
 gradle_path = os.path.join("android", "app", "build.gradle")
 if os.path.exists(gradle_path):
     with open(gradle_path, "r", encoding="utf-8") as f:
         content = f.read()
 
-    # Replace minSdkVersion flutter.minSdkVersion or minSdkVersion = ... with 21
-    content = re.sub(r"minSdkVersion\s*=.*", "minSdkVersion = 21", content)
+    # Ensure minSdkVersion 21
+    content = re.sub(r"minSdkVersion\s*=.*", "minSdkVersion 21", content)
     content = re.sub(r"minSdkVersion\s+flutter\.minSdkVersion", "minSdkVersion 21", content)
     
+    # Ensure compileSdk 36
+    content = re.sub(r"compileSdk\s*=.*", "compileSdk 36", content)
+    content = re.sub(r"compileSdkVersion\s*=.*", "compileSdkVersion 36", content)
+
     with open(gradle_path, "w", encoding="utf-8") as f:
         f.write(content)
-    print("Updated android/app/build.gradle minSdkVersion to 21 (Android 7+ support).")
+    print("Verified android/app/build.gradle with compileSdk 36 & minSdkVersion 21.")
 else:
     print(f"Warning: {gradle_path} not found.")
 

@@ -24,7 +24,8 @@ if (flutterVersionName == null) {
 
 android {
     namespace "com.seno.app"
-    compileSdk 34
+    compileSdk 36
+    buildToolsVersion "35.0.0"
 
     compileOptions {
         coreLibraryDesugaringEnabled true
@@ -43,7 +44,7 @@ android {
     defaultConfig {
         applicationId "com.seno.app"
         minSdkVersion 21
-        targetSdkVersion 34
+        targetSdkVersion 36
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
