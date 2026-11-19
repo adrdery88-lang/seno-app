@@ -1,47 +1,48 @@
-import os
-import re
+"""Verify the Android manifest permissions for the Seno app.
 
-print("Running setup_android.py...")
-
-# 1. Update AndroidManifest.xml
-manifest_path = os.path.join("android", "app", "src", "main", "AndroidManifest.xml")
-if os.path.exists(manifest_path):
-    with open(manifest_path, "r", encoding="utf-8") as f:
-        content = f.read()
-
-    permissions = """
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+The Android Gradle files are generated from the clean Flutter 3.29 template and
+are committed to the repository. This script intentionally does not modify any
+Gradle file (editing .gradle.kts with the old regex rules would break the build).
 """
-    if "android.permission.RECORD_AUDIO" not in content:
-        content = content.replace("<application", permissions + "\n    <application")
-        with open(manifest_path, "w", encoding="utf-8") as f:
-            f.write(content)
-        print("Updated AndroidManifest.xml with permissions.")
-else:
-    print(f"Warning: {manifest_path} not found.")
 
-# 2. Ensure minSdkVersion = 21 and compileSdk = 36 in android/app/build.gradle
-gradle_path = os.path.join("android", "app", "build.gradle")
-if os.path.exists(gradle_path):
-    with open(gradle_path, "r", encoding="utf-8") as f:
-        content = f.read()
+from pathlib import Path
 
-    # Ensure minSdkVersion 21
-    content = re.sub(r"minSdkVersion\s*=.*", "minSdkVersion 21", content)
-    content = re.sub(r"minSdkVersion\s+flutter\.minSdkVersion", "minSdkVersion 21", content)
-    
-    # Ensure compileSdk 36
-    content = re.sub(r"compileSdk\s*=.*", "compileSdk 36", content)
-    content = re.sub(r"compileSdkVersion\s*=.*", "compileSdkVersion 36", content)
+MANIFEST = Path("android/app/src/main/AndroidManifest.xml")
 
-    with open(gradle_path, "w", encoding="utf-8") as f:
-        f.write(content)
-    print("Verified android/app/build.gradle with compileSdk 36 & minSdkVersion 21.")
-else:
-    print(f"Warning: {gradle_path} not found.")
+REQUIRED_PERMISSIONS = [
+    "android.permission.INTERNET",
+    "android.permission.RECORD_AUDIO",
+    "android.permission.MODIFY_AUDIO_SETTINGS",
+    "android.permission.CAMERA",
+    "android.permission.ACCESS_NETWORK_STATE",
+    "android.permission.WAKE_LOCK",
+]
 
-print("setup_android.py completed successfully!")
+
+def main() -> None:
+    if not MANIFEST.exists():
+        raise SystemExit(f"Missing {MANIFEST}")
+
+    content = MANIFEST.read_text(encoding="utf-8")
+    missing = [
+        permission
+        for permission in REQUIRED_PERMISSIONS
+        if f'android:name="{permission}"' not in content
+    ]
+
+    if missing:
+        tags = "\n    ".join(
+            f'<uses-permission android:name="{permission}" />'
+            for permission in missing
+        )
+        content = content.replace("<application", f"    {tags}\n\n    <application", 1)
+        MANIFEST.write_text(content, encoding="utf-8")
+        print(f"Added manifest permissions: {', '.join(missing)}")
+    else:
+        print("AndroidManifest.xml permissions OK")
+
+    print("setup_android.py completed successfully")
+
+
+if __name__ == "__main__":
+    main()
