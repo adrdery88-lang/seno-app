@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up Java JDK 17
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: '17'
@@ -67,7 +67,9 @@ jobs:
         run: |
           for attempt in 1 2 3; do
             echo "Build attempt ${attempt} of 3"
-            if flutter build apk --release; then
+            flutter build apk --release 2>&1 | tee /tmp/seno-build.log
+            status=${PIPESTATUS[0]}
+            if [ "$status" -eq 0 ]; then
               echo "APK built successfully on attempt ${attempt}"
               exit 0
             fi
@@ -78,6 +80,16 @@ jobs:
           done
           echo "APK build failed after 3 attempts"
           exit 1
+
+      - name: Report build failure details
+        if: failure()
+        shell: bash
+        run: |
+          if [ -f /tmp/seno-build.log ]; then
+            grep -iE "FAILURE:|What went wrong|Execution failed|error:|^e: |Caused by|Could not|Must provide|Unsupported|Invalid|Exception|A problem occurred" /tmp/seno-build.log | head -n 40 | while IFS= read -r line; do
+              echo "::error::${line}"
+            done
+          fi
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
