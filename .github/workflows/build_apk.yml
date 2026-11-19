@@ -97,7 +97,7 @@ jobs:
           if [ -f /tmp/seno-build.log ]; then
             grep -iE -A 4 "FAILURE:|What went wrong|Execution failed|error:|^e: |Caused by|Could not|Must provide|Unsupported|Invalid|Exception|A problem occurred|AndroidManifest.xml Error" /tmp/seno-build.log | head -n 80 | while IFS= read -r line; do
               echo "::error::${line}"
-            done
+            done || true
           fi
 
       - name: Upload APK artifact
