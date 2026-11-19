@@ -132,8 +132,34 @@ jobs:
 
       - name: Build Release APK
       
-        run: flutter build apk --release --verbose
+        shell: bash
         
+        run: |
+        
+          for attempt in 1 2 3; do
+          
+            echo "Build attempt $attempt of 3"
+            
+            if flutter build apk --release --verbose; then
+            
+              exit 0
+              
+            fi
+            
+            if [ "$attempt" -lt 3 ]; then
+            
+              delay=$((attempt * 20))
+              
+              echo "Build failed; retrying in ${delay}s for transient Maven/network errors..."
+              
+              sleep "$delay"
+              
+            fi
+            
+          done
+          
+          exit 1
+          
 
 
       - name: Upload APK Artifact
@@ -148,6 +174,19 @@ jobs:
           
           retention-days: 14
           
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
