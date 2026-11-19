@@ -37,7 +37,7 @@ class MainActivity : FlutterActivity() {
                 File(filesDir, "crash.txt").writeText(
                     "Thread: ${thread.name}\n${writer.toString()}"
                 )
-            } catch (_: Throwable) {
+            } catch (ignored: Throwable) {
             }
             if (previous != null) {
                 previous.uncaughtException(thread, throwable)
@@ -53,7 +53,7 @@ class MainActivity : FlutterActivity() {
         if (!file.exists()) return null
         val text = try {
             file.readText()
-        } catch (_: Throwable) {
+        } catch (ignored: Throwable) {
             null
         }
         file.delete()
