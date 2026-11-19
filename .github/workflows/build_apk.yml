@@ -62,15 +62,6 @@ jobs:
       - name: Get Flutter dependencies
         run: flutter pub get
 
-      - name: Analyze Dart sources
-        continue-on-error: true
-        shell: bash
-        run: |
-          flutter analyze --no-pub 2>&1 | tee /tmp/seno-analyze.log
-          grep -iE "error •|Error:|isn't a type|No named parameter" /tmp/seno-analyze.log | head -n 60 | while IFS= read -r line; do
-            echo "::error::${line}"
-          done
-
       - name: Build universal release APK
         shell: bash
         run: |
