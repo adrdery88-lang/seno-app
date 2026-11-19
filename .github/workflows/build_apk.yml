@@ -67,7 +67,7 @@ jobs:
         shell: bash
         run: |
           flutter analyze --no-pub 2>&1 | tee /tmp/seno-analyze.log
-          grep -iE "error •|Error:" /tmp/seno-analyze.log | head -n 60 | while IFS= read -r line; do
+          grep -iE "error •|Error:|isn't a type|No named parameter" /tmp/seno-analyze.log | head -n 60 | while IFS= read -r line; do
             echo "::error::${line}"
           done
 
@@ -95,7 +95,7 @@ jobs:
         shell: bash
         run: |
           if [ -f /tmp/seno-build.log ]; then
-            grep -iE "FAILURE:|What went wrong|Execution failed|error:|^e: |Caused by|Could not|Must provide|Unsupported|Invalid|Exception|A problem occurred" /tmp/seno-build.log | head -n 40 | while IFS= read -r line; do
+            grep -iE -A 4 "FAILURE:|What went wrong|Execution failed|error:|^e: |Caused by|Could not|Must provide|Unsupported|Invalid|Exception|A problem occurred|AndroidManifest.xml Error" /tmp/seno-build.log | head -n 80 | while IFS= read -r line; do
               echo "::error::${line}"
             done
           fi
