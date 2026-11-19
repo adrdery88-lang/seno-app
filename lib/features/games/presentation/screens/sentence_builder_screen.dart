@@ -52,7 +52,7 @@ class _SentenceBuilderScreenState extends State<SentenceBuilderScreen> {
 
               // Assembly Area
               Container(
-                minHeight: 120,
+                constraints: const BoxConstraints(minHeight: 120),
                 width: double.infinity,
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
