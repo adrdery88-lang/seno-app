@@ -4,6 +4,8 @@ plugins {
     
     id "kotlin-android"
     
+    id "dev.flutter.flutter-gradle-plugin"
+    
 }
 
 
@@ -21,14 +23,6 @@ if (localPropertiesFile.exists()) {
     }
     
 }
-
-def flutterRoot = localProperties.getProperty('flutter.sdk')
-
-assert flutterRoot != null : 'flutter.sdk not set in android/local.properties'
-
-apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
-
-
 
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode') ?: '1'
 
@@ -96,7 +90,7 @@ android {
 
 flutter {
     
-    source '../..'
+    source = '../..'
     
 }
 
@@ -109,6 +103,7 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
     
 }
+
 
 
 
