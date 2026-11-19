@@ -50,9 +50,23 @@ jobs:
       
         run: |
         
-          yes | sdkmanager --licenses || true
+          export ANDROID_HOME="${ANDROID_HOME:-/usr/local/lib/android/sdk}"
           
-          sdkmanager "platforms;android-36" "build-tools;35.0.0"
+          export PATH="$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH"
+          
+          SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+          
+          if [ ! -x "$SDKMANAGER" ]; then
+          
+            SDKMANAGER="$(find "$ANDROID_HOME/cmdline-tools" -name sdkmanager -type f | head -n 1)"
+            
+          fi
+          
+          test -x "$SDKMANAGER"
+          
+          yes | "$SDKMANAGER" --licenses || true
+          
+          "$SDKMANAGER" "platforms;android-36" "build-tools;35.0.0"
           
 
 
@@ -110,6 +124,13 @@ jobs:
           
           retention-days: 14
           
+
+
+
+
+
+
+
 
 
 
