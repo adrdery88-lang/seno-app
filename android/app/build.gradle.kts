@@ -34,7 +34,7 @@ android {
 
     defaultConfig {
         applicationId = "com.seno.app"
-        minSdk = 21
+        minSdk = 24
         targetSdk = 36
         versionCode = flutterVersionCode
         versionName = flutterVersionName
