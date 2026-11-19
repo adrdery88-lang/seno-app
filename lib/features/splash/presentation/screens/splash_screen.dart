@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/router/route_names.dart';
-import '../../../bloc/splash_cubit.dart';
+import '../../bloc/splash_cubit.dart';
 import '../widgets/animated_logo.dart';
 
 class SplashScreen extends StatefulWidget {
