@@ -88,7 +88,7 @@ jobs:
       
         run: |
         
-          # Regenerate only the Android host project; lib/ and pubspec.yaml are preserved.
+          # Regenerate only Android; lib/ and pubspec.yaml remain untouched.
           
           rm -rf android
           
@@ -100,13 +100,21 @@ jobs:
           
           from pathlib import Path
           
-          p = Path('android/app/build.gradle')
+          candidates = sorted(Path('android/app').glob('build.gradle*'))
+          
+          if not candidates:
+          
+              raise SystemExit('No Android app Gradle build file was generated')
+              
+          p = candidates[0]
           
           s = p.read_text()
           
           s = re.sub(r'namespace\s*=\s*["\'][^"\']+["\']', 'namespace = "com.seno.app"', s)
           
-          s = re.sub(r'applicationId\s*["\'][^"\']+["\']', 'applicationId "com.seno.app"', s)
+          s = re.sub(r'applicationId\s*=\s*["\'][^"\']+["\']', 'applicationId = "com.seno.app"', s)
+          
+          s = re.sub(r'applicationId\s+["\'][^"\']+["\']', 'applicationId "com.seno.app"', s)
           
           s = re.sub(r'compileSdk\s*=\s*[^\n]+', 'compileSdk = 36', s)
           
@@ -120,7 +128,9 @@ jobs:
               
           p.write_text(s)
           
-          print(p.read_text())
+          print(f'Configured {p}')
+          
+          print(s)
           
           PY
           
@@ -152,10 +162,8 @@ jobs:
 
       - name: Setup Android permissions
       
-        run: |
+        run: python3 scripts/setup_android.py
         
-          python3 scripts/setup_android.py
-          
 
 
       - name: Clean Build Cache
@@ -178,56 +186,7 @@ jobs:
         
           for attempt in 1 2 3; do
           
-            echo "Build attempt $attempt of 3"
-            
-            if flutter build apk --release --verbose; then
-            
-              exit 0
-              
-            fi
-            
-            if [ "$attempt" -lt 3 ]; then
-            
-              delay=$((attempt * 20))
-              
-              echo "Build failed; retrying in ${delay}s for transient Maven/network errors..."
-              
-              sleep "$delay"
-              
-            fi
-            
-          done
-          
-          exit 1
-          
-
-
-      - name: Upload APK Artifact
-      
-        uses: actions/upload-artifact@v4
-        
-        with:
-        
-          name: seno-android-apk
-          
-          path: build/app/outputs/flutter-apk/*.apk
-          
-          retention-days: 14
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            echo "Build attempt $attempt of 3
 
 
 
