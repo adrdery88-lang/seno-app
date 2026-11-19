@@ -1,51 +1,120 @@
 name: seno
+
 description: "Seno - Smart, AI-powered cross-platform English Learning App built with Flutter."
+
 publish_to: "none"
+
 version: 1.0.0+1
 
+
+
 environment:
+
   sdk: ">=3.2.0 <4.0.0"
+  
+
 
 dependencies:
+
   flutter:
+  
     sdk: flutter
-
+    
   # State Management & Architecture
+  
   flutter_bloc: ^8.1.6
+  
   equatable: ^2.0.7
+  
   dartz: ^0.10.1
+  
   get_it: ^8.0.2
-
+  
   # Routing & Navigation
+  
   go_router: ^14.6.0
-
+  
   # Persistence & Local DB
+  
   shared_preferences: ^2.3.4
+  
   uuid: ^4.5.1
-
+  
   # Network & Backend
+  
   connectivity_plus: ^6.1.0
-
-  # Audio & Speech (Updated to latest compatible versions for Android SDK 36)
+  
+  # Audio & Speech (compatible with Flutter 3.24.3 / Dart 3.5)
+  
   just_audio: ^0.9.42
+  
   flutter_tts: ^4.2.5
-  speech_to_text: ^7.5.0
-
+  
+  speech_to_text: ^7.4.0
+  
   # UI, Icons, Visuals & Animations
+  
   flutter_animate: ^4.5.2
+  
   fl_chart: ^0.69.2
+  
   shimmer: ^3.0.0
+  
+
 
 dev_dependencies:
+
   flutter_test:
+  
     sdk: flutter
+    
   flutter_lints: ^5.0.0
+  
+
 
 flutter:
-  uses-material-design: true
 
+  uses-material-design: true
+  
   assets:
+  
     - assets/content/levels/
+    
     - assets/content/quizzes/
+    
     - assets/content/personas/
+    
     - assets/content/scenarios/
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
